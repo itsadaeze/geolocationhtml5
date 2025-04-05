@@ -11,7 +11,7 @@ body {
 }
 
 /* The card container */
-#ticker {
+#geolocation{
   background-color: #fff;
   border-radius: 12px;
   padding: 30px;
@@ -65,7 +65,7 @@ h1 {
 }
 
 /* Hover effect for the card */
-#ticker:hover {
+#geolocation:hover {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   transform: translateY(-5px);
   transition: transform 0.3s, box-shadow 0.3s;
@@ -73,8 +73,9 @@ h1 {
 
 /* Responsive Styling: If the screen is small, make the card width smaller */
 @media (max-width: 768px) {
-  #ticker {
+  #geolocation {
     padding: 20px;
     max-width: 90%;
+    width: 80%;
   }
 }

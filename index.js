@@ -1,7 +1,7 @@
 // Define functions before calling them
 
 function updateTicker() {
-  updateTime();  // Update time every second
+  updateTime(); 
 }
 
 function updateTime() {
