@@ -1,18 +1,25 @@
-// Define functions before calling them
+function checkGeolocationPermission() {
+  if (navigator.permissions) {
+    navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
+      if (result.state === 'granted') {
+        updateLocation();
+      } else if (result.state === 'denied') {
 
-function updateTicker() {
-  updateTime(); 
-}
+        document.getElementById('location-display').textContent = "Location permission denied. Please enable it to view location.";
+      } else {
 
-function updateTime() {
-  const now = new Date();
-  const dateString = now.toLocaleDateString();
-  const timeString = now.toLocaleTimeString();
-  document.getElementById('date-time').textContent = `Date: ${dateString} | Time: ${timeString} | `;
+        updateLocation();
+      }
+    });
+  } else {
+    
+    updateLocation();
+  }
 }
 
 function updateLocation() {
   if (navigator.geolocation) {
+
     navigator.geolocation.getCurrentPosition(
       showPosition,
       showError,
@@ -26,8 +33,8 @@ function updateLocation() {
 function showPosition(position) {
   const latitude = position.coords.latitude;
   const longitude = position.coords.longitude;
-
-  // Fetch location data using OpenStreetMap's Nominatim service
+  
+  
   fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`)
     .then(response => response.json())
     .then(data => {
@@ -44,27 +51,39 @@ function showPosition(position) {
 }
 
 function showError(error) {
-  console.error(error);  // Log error for better debugging
   switch(error.code) {
     case error.PERMISSION_DENIED:
       document.getElementById("location-display").textContent = "User denied the request for Geolocation. | ";
       break;
     case error.POSITION_UNAVAILABLE:
-      document.getElementById("location-display").textContent = "Location information is unavailable. Please check your connection or device settings. | ";
+      document.getElementById("location-display").textContent = "Location information is unavailable. | ";
       break;
     case error.TIMEOUT:
       document.getElementById("location-display").textContent = "The request to get user location timed out. | ";
       break;
     case error.UNKNOWN_ERROR:
-      document.getElementById("location-display").textContent = "An unknown error occurred while fetching location. | ";
+      document.getElementById("location-display").textContent = "An unknown error occurred. | ";
       break;
   }
 }
 
-// Call the functions after they are defined
-setInterval(updateTicker, 1000); // Update time every second
-setInterval(updateLocation, 60000); // Update location every 60 seconds
+// Update the current date and time every second
+function updateTicker() {
+  updateTime();  
+}
 
-// Initial call to update time and location
-updateTicker();  // Initial update for time
-updateLocation(); // Initial update for location
+// Update time function
+function updateTime() {
+  const now = new Date();
+  const dateString = now.toLocaleDateString();
+  const timeString = now.toLocaleTimeString();
+  document.getElementById('date-time').textContent = `Date: ${dateString} | Time: ${timeString} | `;
+}
+
+
+setInterval(updateTicker, 1000); 
+setInterval(updateLocation, 60000); 
+
+// Initial call to check geolocation permission and update data
+window.onload = checkGeolocationPermission; 
+

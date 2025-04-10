@@ -1,7 +1,7 @@
 /* Base styling for the entire page */
 body {
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #3498db, #8e44ad);  /* Gradient background */
+  background: linear-gradient(135deg, #3498db, #8e44ad); 
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -37,7 +37,7 @@ h1 {
 #date-time-title {
   font-size: 22px;
   font-weight: bold;
-  color: #2ecc71;  /* Green color for date/time */
+  color: #2ecc71;  
   margin-bottom: 10px;
 }
 
@@ -52,7 +52,7 @@ h1 {
 #location-title {
   font-size: 22px;
   font-weight: bold;
-  color: #f39c12;  /* Yellow color for location */
+  color: #f39c12;  
   margin-bottom: 10px;
 }
 
@@ -71,7 +71,7 @@ h1 {
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Responsive Styling: If the screen is small, make the card width smaller */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
   #geolocation {
     padding: 20px;
